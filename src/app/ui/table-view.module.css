@@ -1,0 +1,20 @@
+.panel {
+  --ig-expansion-panel-header-background: transparent;
+
+  border-top: 1px solid var(--mt-border);
+  margin-top: 4px;
+}
+
+.panel::part(header) {
+  padding-inline: 0;
+}
+
+.panel::part(content) {
+  padding: 12px 0 4px;
+}
+
+.label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--mt-ink-2);
+}

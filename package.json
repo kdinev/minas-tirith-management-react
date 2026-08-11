@@ -11,12 +11,15 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@igniteui/material-icons-extended": "^3.0.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
-    "@igniteui/material-icons-extended": "^3.0.2",
     "element-internals-polyfill": "^3.0.2",
     "functions-have-names": "^1.2.3",
-    "igniteui-react": "~19.7.0",
+    "igniteui-grid-lite": "~0.9.0",
+    "igniteui-react": "~19.8.1",
+    "igniteui-react-charts": "~19.6.0",
+    "igniteui-react-gauges": "~19.6.0",
     "react": "^19.2.4",
     "react-app-polyfill": "^3.0.0",
     "react-dom": "^19.2.4",
@@ -34,12 +37,12 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
+    "igniteui-cli": "~15.5.1",
+    "playwright": "^1.58.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.57.0",
     "vite": "^8.0.1",
-    "vitest": "^4.1.0",
-    "playwright": "^1.58.2",
-    "igniteui-cli": "~15.3.0"
+    "vitest": "^4.1.0"
   },
   "browserslist": [
     ">0.2%",

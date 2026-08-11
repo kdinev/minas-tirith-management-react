@@ -1,0 +1,574 @@
+/* ---- Page scaffolding -------------------------------------------------- */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px 28px 48px;
+  max-width: 1720px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pageHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--mt-border);
+}
+
+.pageHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mt-gold);
+}
+
+.eyebrow igc-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.pageTitle {
+  font-size: 1.85rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--mt-ink-1);
+}
+
+.lede {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--mt-ink-2);
+  max-width: 76ch;
+}
+
+.pageActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ---- Panel ------------------------------------------------------------- */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--mt-surface-1);
+  border: 1px solid var(--mt-border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.panelHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 20px;
+  padding: 14px 18px;
+  background: var(--mt-surface-2);
+  border-bottom: 1px solid var(--mt-border);
+}
+
+.panelTitles {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.panelTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--mt-ink-1);
+  line-height: 1.3;
+}
+
+.panelSubtitle {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--mt-ink-3);
+}
+
+.panelActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.panelBody {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+/* A body that hands its whole box to a grid or a chart. */
+.panelBodyFlush {
+  padding: 0;
+  gap: 0;
+}
+
+.panelNote {
+  padding: 11px 18px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--mt-ink-3);
+  background: var(--mt-surface-2);
+  border-top: 1px solid var(--mt-border);
+}
+
+/* ---- Grids of panels --------------------------------------------------- */
+
+/* `start`, not the default `stretch`: a short panel beside a tall one should
+ * end where its content ends rather than growing a field of empty surface. */
+.row {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+  align-items: start;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(196px, 1fr));
+  gap: 14px;
+}
+
+/* ---- Stat tile --------------------------------------------------------- */
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 15px 17px;
+  background: var(--mt-surface-1);
+  border: 1px solid var(--mt-border);
+  border-radius: 10px;
+  min-width: 0;
+}
+
+.tileAccent {
+  border-inline-start: 3px solid var(--tile-accent, var(--ig-primary-500));
+}
+
+.tileLabel {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mt-ink-3);
+}
+
+.tileLabel igc-icon {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+}
+
+.tileValueRow {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.tileValue {
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--mt-ink-1);
+}
+
+.tileUnit {
+  font-size: 0.85rem;
+  color: var(--mt-ink-2);
+}
+
+.tileCaption {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--mt-ink-3);
+}
+
+/* ---- Hero figure ------------------------------------------------------- */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.heroValue {
+  font-size: 3.4rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--mt-ink-1);
+}
+
+.heroCaption {
+  font-size: 0.85rem;
+  color: var(--mt-ink-2);
+  line-height: 1.5;
+}
+
+/* ---- Status chip ------------------------------------------------------- */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px 3px 7px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--status-color) 40%, transparent);
+  background: color-mix(in srgb, var(--status-color) 14%, transparent);
+  color: var(--mt-ink-1);
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.status igc-icon {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  color: var(--status-color);
+}
+
+.statusBare {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--mt-ink-1);
+  white-space: nowrap;
+}
+
+.statusBare igc-icon {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+  color: var(--status-color);
+}
+
+/* ---- Meter ------------------------------------------------------------- */
+
+.meter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.meterHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.8rem;
+}
+
+.meterLabel {
+  color: var(--mt-ink-2);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meterValue {
+  color: var(--mt-ink-1);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+/* Thin mark, rounded data end, anchored to the baseline. */
+.meterTrack {
+  position: relative;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--mt-surface-3);
+  overflow: hidden;
+}
+
+.meterFill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  border-radius: 4px;
+  background: var(--meter-color, var(--ig-primary-500));
+}
+
+/* A second, thinner mark for "what is required" behind the fill. */
+.meterTarget {
+  position: absolute;
+  inset-block: -2px;
+  width: 2px;
+  background: var(--mt-ink-2);
+  border-radius: 1px;
+}
+
+.meterFoot {
+  font-size: 0.74rem;
+  color: var(--mt-ink-3);
+  line-height: 1.4;
+}
+
+/* ---- Key/value list ---------------------------------------------------- */
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+  gap: 14px 20px;
+  margin: 0;
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.factLabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mt-ink-3);
+}
+
+.factValue {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--mt-ink-1);
+  line-height: 1.35;
+}
+
+.factValue igc-icon {
+  width: 15px;
+  height: 15px;
+  vertical-align: -2px;
+}
+
+/* ---- Chart figure ------------------------------------------------------ */
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  margin: 0;
+}
+
+.figureCaption {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--mt-ink-3);
+  order: 2;
+}
+
+/* Charts, gauges and grids size themselves from this box, so it needs a real
+ * height of its own. `min-height: 0` keeps a flexible grid track shrinkable. */
+.viz {
+  min-height: var(--viz-height, 260px);
+  height: var(--viz-height, 260px);
+  min-width: 0;
+  order: 1;
+}
+
+.viz > * {
+  width: 100%;
+  height: 100%;
+}
+
+.vizAuto {
+  height: auto;
+  min-height: var(--viz-height, 260px);
+}
+
+/* ---- Legend ------------------------------------------------------------ */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  order: 0;
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.78rem;
+  color: var(--mt-ink-2);
+}
+
+.legendSwatch {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  flex: 0 0 11px;
+  background: var(--swatch);
+  /* 2px surface ring, so touching marks stay separable. */
+  box-shadow: 0 0 0 2px var(--mt-surface-1);
+}
+
+/* ---- Data table (the relief channel for every chart) ------------------- */
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--mt-border);
+  border-radius: 8px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.83rem;
+}
+
+.table caption {
+  text-align: start;
+  padding: 10px 12px;
+  color: var(--mt-ink-3);
+  font-size: 0.78rem;
+  border-bottom: 1px solid var(--mt-border);
+}
+
+.table th,
+.table td {
+  padding: 8px 12px;
+  text-align: start;
+  border-bottom: 1px solid var(--mt-line);
+  white-space: nowrap;
+}
+
+.table th {
+  color: var(--mt-ink-3);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--mt-surface-2);
+}
+
+.table td {
+  color: var(--mt-ink-1);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.numeric {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Empty state ------------------------------------------------------- */
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--mt-ink-3);
+  font-size: 0.88rem;
+}
+
+.empty igc-icon {
+  width: 30px;
+  height: 30px;
+  color: var(--mt-ink-3);
+}
+
+/* ---- Link styled as an action ------------------------------------------ */
+
+.linkButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--mt-border);
+  background: var(--mt-surface-2);
+  color: var(--ig-primary-500);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.linkButton:hover {
+  background: var(--mt-surface-3);
+  border-color: color-mix(in srgb, var(--ig-primary-500) 40%, transparent);
+}
+
+.linkButton igc-icon {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+}
+
+/* ---- Small print ------------------------------------------------------- */
+
+.muted {
+  color: var(--mt-ink-3);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.prose {
+  color: var(--mt-ink-2);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 18px 16px 40px;
+  }
+
+  .pageTitle {
+    font-size: 1.45rem;
+  }
+
+  .heroValue {
+    font-size: 2.6rem;
+  }
+}

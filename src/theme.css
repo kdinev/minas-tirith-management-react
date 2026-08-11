@@ -1,0 +1,132 @@
+/*
+ * Citadel — the Steward's dark theme.
+ *
+ * Layered on top of igniteui-webcomponents/themes/dark/material.css.
+ * Only the `500` shade of each palette role is overridden: every other shade is
+ * derived from it by the theme's relative-color functions, so the whole ramp
+ * follows. The `gray` base is deliberately left alone — in a dark variant it is
+ * generated light so text contrasts against the surface.
+ */
+:root {
+  --ig-primary-500: #6f9fd8; /* Gondor steel */
+  --ig-secondary-500: #d4af37; /* the Steward's gold */
+  --ig-surface-500: #171a21; /* night over the Pelennor */
+
+  --ig-font-family: "Titillium Web", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --ig-radius-factor: 0.35;
+
+  /* ---- Planes ---------------------------------------------------------- */
+  --mt-plane: #0f1116; /* page background */
+  --mt-surface-1: #171a21; /* panels, chart surface */
+  --mt-surface-2: #1e222b; /* panel headers, raised strips */
+  --mt-surface-3: #262b36; /* hover, meter tracks */
+
+  /* ---- Ink ------------------------------------------------------------- */
+  --mt-ink-1: #f0f3f8;
+  --mt-ink-2: #b3bccb;
+  --mt-ink-3: #8b93a3;
+
+  /* ---- Lines ----------------------------------------------------------- */
+  --mt-line: #262b34; /* gridline hairline */
+  --mt-axis: #37404d; /* baseline / axis */
+  --mt-border: rgba(255, 255, 255, 0.09);
+
+  /* ---- Status scale (reserved meaning — never reused as a series) ------
+   * All four clear 3:1 against --mt-surface-1. Always shipped with an icon and
+   * a label so state never rides on color alone. */
+  --mt-good: #0ca30c;
+  --mt-warning: #fab219;
+  --mt-serious: #ec835a;
+  --mt-critical: #d03b3b;
+
+  /* ---- Categorical series ---------------------------------------------
+   * Fixed order, assigned in sequence, never cycled. Validated for the dark
+   * surface: lightness band, chroma floor, protan/deutan separation, and
+   * contrast all pass. */
+  --mt-series-1: #3987e5;
+  --mt-series-2: #d95926;
+  --mt-series-3: #199e70;
+  --mt-series-4: #c98500;
+  --mt-series-5: #d55181;
+  --mt-series-6: #008300;
+  --mt-series-7: #9085e9;
+  --mt-series-8: #e66767;
+
+  /* ---- Heraldry -------------------------------------------------------- */
+  --mt-gold: #d4af37;
+  --mt-silver: #c8d2e0;
+
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--mt-plane);
+  color: var(--mt-ink-1);
+  font-family: var(--ig-font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure {
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+/* The starter shell centred a single column; the console owns the viewport. */
+.outer-wrapper {
+  height: 100%;
+}
+
+/* Keyboard focus must stay visible everywhere. */
+:focus-visible {
+  outline: 2px solid var(--ig-primary-500);
+  outline-offset: 2px;
+}
+
+/* ---- Ignite UI component overrides ------------------------------------
+ * Selectors target the rendered custom element, never the React name. */
+igc-navbar {
+  --ig-navbar-background: var(--mt-surface-2);
+  --ig-navbar-color: var(--mt-ink-1);
+}
+
+igc-nav-drawer {
+  --ig-nav-drawer-background: var(--mt-surface-2);
+  --ig-nav-drawer-item-active-background: rgba(111, 159, 216, 0.16);
+}
+
+igc-grid-lite {
+  --ig-grid-header-background: var(--mt-surface-2);
+  --ig-grid-content-background: var(--mt-surface-1);
+}
+
+/* Scrollbars, so the console reads as one surface. */
+* {
+  scrollbar-color: var(--mt-surface-3) transparent;
+  scrollbar-width: thin;
+}
