@@ -10,7 +10,11 @@ import "./theme.css";
 import App from "./app/app";
 import { routes } from "./app/app-routes";
 
-const basename = import.meta.env.VITE_BASENAME || "/";
+// Vite derives BASE_URL from the `base` config, so the router prefix and the
+// built asset URLs come from one value and cannot drift apart — which matters on
+// GitHub Pages, where the site is served from /<repo>/ rather than the root.
+// VITE_BASENAME stays supported as an explicit override.
+const basename = import.meta.env.VITE_BASENAME || import.meta.env.BASE_URL;
 
 const router = createBrowserRouter(
   [

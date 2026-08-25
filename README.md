@@ -89,6 +89,59 @@ against 19.8.1 — that gap is normal, not a missed upgrade). Their modules are
 registered once in `ui/charts.ts`; a missing `register()` fails silently, and the
 chart, an axis, or a series simply never appears.
 
+## Deploying to GitHub Pages
+
+Pushing to `master` builds, checks and publishes the site via
+[.github/workflows/github-pages.yml](.github/workflows/github-pages.yml). It ends
+up at `https://<owner>.github.io/<repo>/`.
+
+### One-time setup
+
+**Settings → Pages → Build and deployment → Source: GitHub Actions.** That is the
+only manual step, and nothing deploys until it is done. The workflow uses the
+artifact-based deployment rather than a `gh-pages` branch, so there is no branch
+to create and none to protect.
+
+### What the workflow does
+
+The `build` job installs with `npm ci`, lints, runs the tests in a real Chromium,
+then builds — and `npm run build` shells out to `tsc -b` first, so that step is
+the type-check gate as well. A deployment therefore cannot be published from a
+commit that fails any of them. `deploy` is a separate job holding the
+`pages: write` / `id-token: write` permissions, which leaves the build job running
+on read-only credentials.
+
+### The two things that make a sub-path deployment work
+
+A project site is served from `/<repo>/`, not from the root, and getting that
+wrong is the usual reason a Pages SPA loads a blank page.
+
+1. **The base path.** CI sets `VITE_BASE=/<repo>/` from the repository name and
+   [vite.config.ts](vite.config.ts) applies it as Vite's `base`. Vite hands it
+   back to the app as `import.meta.env.BASE_URL`, which is what `main.tsx` gives
+   the router — so the asset URLs and the router prefix come from **one** value
+   and cannot drift apart. A plain local `npm run build` leaves it at `/`.
+2. **The SPA fallback.** GitHub Pages has no rewrite rule, so `/<repo>/garrisons`
+   is a genuine 404 and only `/` would ever boot the app. The build publishes a
+   copy of `index.html` as `404.html`; Pages serves that for unknown paths and the
+   router reads the real URL from it. Deep links do return a 404 *status* — that
+   is inherent to the technique, not a fault. It is done in the Vite build rather
+   than in the workflow so that `vite preview` behaves like production.
+
+The workflow asserts both of these against the built output before uploading, so
+a regression fails the run instead of quietly publishing a blank page.
+
+### Checking a Pages build locally
+
+```bash
+# bash
+VITE_BASE=/<repo>/ npm run build
+# PowerShell
+$env:VITE_BASE='/<repo>/'; npm run build
+
+npx vite preview --base /<repo>/
+```
+
 ## Known limitations
 
 - **Dark only.** The console commits to one dark "war room" palette, validated
