@@ -1,36 +1,47 @@
-# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
+# Pull-request checks. Pushes to master are checked by the deploy workflow's own
+# build job, so this runs on pull requests only rather than duplicating it.
 name: Node.js CI
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [master]
+
+permissions:
+  contents: read
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
+        # See the supported Node.js release schedule at
+        # https://nodejs.org/en/about/releases/
         node-version: [22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        # cache: 'npm' # enable after committing lock file from first install
-    - run: npm i # replace with 'npm ci' after committing lock file from first install
-#    - run: npm run lint
-    - run: npm run build
-    - name: Install Playwright browsers
-      run: npx playwright install chromium-headless-shell
-    - run: npm run test
-      env:
-        CI: 'true'
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # `npm run build` runs `tsc -b` first, so this covers the type-check.
+      - name: Build
+        run: npm run build
+
+      # The component tests run in a real Chromium via @vitest/browser-playwright.
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Test
+        run: npm test -- --run
+        env:
+          CI: 'true'

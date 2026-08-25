@@ -1,50 +1,80 @@
-name: Deploy GitHub Pages
+name: Deploy to GitHub Pages
 
+# This repository's default branch is `master`. The scaffolded workflow watched
+# `main`, so it never fired.
 on:
   push:
-    branches: [ main ]
+    branches: [master]
   workflow_dispatch: {}
 
+permissions:
+  contents: read
+
+# Let a newer push supersede a queued deployment, but never cancel one that is
+# already publishing — a half-written Pages deployment is worse than a slow one.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
 jobs:
-  build-and-deploy:
-
+  build:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+
+      # `npm ci` rather than `npm i`: the lock file is committed, and the Ignite
+      # UI packages are pinned with `~` on purpose (see README) — `npm i` is free
+      # to move them, which is exactly what we do not want between a tested
+      # commit and the artifact that gets published.
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      # The component tests run in a real Chromium via @vitest/browser-playwright,
+      # so the browser and its system libraries have to be installed first.
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Test
+        run: npm test -- --run
+        env:
+          CI: 'true'
+
+      # `npm run build` runs `tsc -b` first, so this is the type-check gate too.
+      # VITE_BASE must match the Pages path: https://<owner>.github.io/<repo>/
+      # The Vite config turns it into both the asset prefix and the router
+      # basename, and writes the 404.html SPA fallback.
+      - name: Build
+        run: npm run build
+        env:
+          VITE_BASE: /${{ github.event.repository.name }}/
+
+      - name: Verify the build is addressed for the Pages sub-path
+        run: |
+          test -f dist/404.html || { echo "::error::dist/404.html missing — deep links would 404"; exit 1; }
+          grep -q 'src="/${{ github.event.repository.name }}/assets/' dist/index.html \
+            || { echo "::error::index.html is not using the /${{ github.event.repository.name }}/ base"; exit 1; }
+          echo "base path and SPA fallback both present"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
     permissions:
       pages: write
       id-token: write
-      actions: read
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
-    strategy:
-      matrix:
-        node-version: [22.x]
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        # cache: 'npm' # enable after committing lock file from first install
-    - run: npm i # replace with 'npm ci' after committing lock file from first install
-    - name: Set environment variable for basename
-      run: echo "VITE_BASENAME=/${{ github.event.repository.name }}" >> $GITHUB_ENV
-    - run: npm run build -- --base=/${{ github.event.repository.name }}/
-    - name: Update Resource Paths
-      run: |
-        find ./dist/assets -type f -name "*.js" -exec sed -i 's|src/assets|${{ github.event.repository.name }}/assets|g' {} +;
-        find ./dist/assets -type f -name "*.js" -exec sed -i 's|/static-data/|/${{ github.event.repository.name }}/static-data/|g' {} +
-    - name: Copy Resources to dist
-      run: if [ -d "./src/assets" ]; then mkdir -p ./dist/assets && cp -R ./src/assets/* ./dist/assets/; fi
-    - name: SPA routing handling
-      run: cp ./dist/index.html ./dist/404.html
-    - name: Upload build artifact to GitHub Pages
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: ./dist
-    - name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v4
+      - id: deployment
+        uses: actions/deploy-pages@v4
