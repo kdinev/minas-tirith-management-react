@@ -1,62 +1,102 @@
 /*
- * Citadel — the Steward's dark theme.
+ * Citadel — the Steward's light theme.
  *
- * Layered on top of igniteui-webcomponents/themes/dark/material.css.
+ * Minas Tirith is the White City, so the console is built on white stone: white
+ * panels lifted off a pale grey-blue plane, with ink and heraldry stepped dark
+ * enough to hold against them.
+ *
+ * Layered on top of igniteui-webcomponents/themes/light/material.css.
  * Only the `500` shade of each palette role is overridden: every other shade is
  * derived from it by the theme's relative-color functions, so the whole ramp
- * follows. The `gray` base is deliberately left alone — in a dark variant it is
- * generated light so text contrasts against the surface.
+ * follows. The `gray` base is deliberately left alone — in a light variant it is
+ * generated dark so text contrasts against the surface.
+ *
+ * Every value below is measured, not guessed. Ink, heraldry and the primary
+ * accent clear WCAG AA (>= 4.5:1) on all four planes; the categorical series
+ * were validated as a set against the white chart surface — lightness band,
+ * chroma floor, protan/deutan separation, normal-vision floor, contrast.
  */
 :root {
-  --ig-primary-500: #6f9fd8; /* Gondor steel */
-  --ig-secondary-500: #d4af37; /* the Steward's gold */
-  --ig-surface-500: #171a21; /* night over the Pelennor */
+  --ig-primary-500: #2a5d99; /* Gondor steel */
+  --ig-secondary-500: #7a5f17; /* the Steward's gold */
+  --ig-surface-500: #ffffff; /* white stone */
 
   --ig-font-family: "Titillium Web", "Segoe UI", system-ui, -apple-system, sans-serif;
   --ig-radius-factor: 0.35;
 
-  /* ---- Planes ---------------------------------------------------------- */
-  --mt-plane: #0f1116; /* page background */
-  --mt-surface-1: #171a21; /* panels, chart surface */
-  --mt-surface-2: #1e222b; /* panel headers, raised strips */
-  --mt-surface-3: #262b36; /* hover, meter tracks */
+  /* ---- Planes ----------------------------------------------------------
+   * The dark variant recessed the page and lifted the panels off it; light
+   * inverts the direction, not the intent. Panels are now the lightest thing on
+   * screen and the plane the most tinted, so a panel still reads as raised. The
+   * steps hold the dark theme's separations (1.09 body-to-header, 1.23
+   * body-to-hover), so nothing that was legible there has flattened here. */
+  --mt-plane: #dae1eb; /* page background — sunlit masonry */
+  --mt-surface-1: #ffffff; /* panels, chart surface */
+  --mt-surface-2: #f2f5fa; /* panel headers, raised strips */
+  --mt-surface-3: #e3e8f0; /* hover, meter tracks */
 
-  /* ---- Ink ------------------------------------------------------------- */
-  --mt-ink-1: #f0f3f8;
-  --mt-ink-2: #b3bccb;
-  --mt-ink-3: #8b93a3;
+  /* ---- Ink -------------------------------------------------------------
+   * All three clear 4.5:1 on every plane above, the tinted plane included —
+   * which is what pulls muted ink down to #57616f rather than a lighter grey. */
+  --mt-ink-1: #161b24;
+  --mt-ink-2: #444e5e;
+  --mt-ink-3: #57616f;
 
   /* ---- Lines ----------------------------------------------------------- */
-  --mt-line: #262b34; /* gridline hairline */
-  --mt-axis: #37404d; /* baseline / axis */
-  --mt-border: rgba(255, 255, 255, 0.09);
+  --mt-line: #e5e9f0; /* gridline hairline */
+  --mt-axis: #aeb8c7; /* baseline / axis */
+  --mt-border: rgba(22, 27, 36, 0.13);
 
   /* ---- Status scale (reserved meaning — never reused as a series) ------
-   * All four clear 3:1 against --mt-surface-1. Always shipped with an icon and
-   * a label so state never rides on color alone. */
+   * Fixed, and deliberately not themed: the same four steps serve both
+   * variants. On a light surface `warning` and `serious` fall below 3:1 by
+   * design — which is why every status ships with an icon and a label, so state
+   * never rides on color alone. */
   --mt-good: #0ca30c;
   --mt-warning: #fab219;
   --mt-serious: #ec835a;
   --mt-critical: #d03b3b;
 
+  /* ---- Status ink -----------------------------------------------------
+   * The four steps above are *mark* colours — a chip's wash, an accent rule, a
+   * gauge arc, a meter fill — where they only have to be seen. Three of them
+   * cannot carry a glyph or a figure on white stone: warning lands at 1.8:1.
+   * So each has a darker twin for the cases where the status IS the ink, and
+   * everything that paints text or an icon reaches for the twin instead.
+   *
+   * Same hue and same meaning, stepped until it clears 4.5:1 on all four
+   * planes. This pairing is what a light variant needs and a dark one does
+   * not — against #171a21 the mark colours were already legible as text. */
+  --mt-good-ink: #006300;
+  --mt-warning-ink: #805200;
+  --mt-serious-ink: #9e4019;
+  --mt-critical-ink: #b02e2e;
+
   /* ---- Categorical series ---------------------------------------------
-   * Fixed order, assigned in sequence, never cycled. Validated for the dark
-   * surface: lightness band, chroma floor, protan/deutan separation, and
-   * contrast all pass. */
-  --mt-series-1: #3987e5;
-  --mt-series-2: #d95926;
-  --mt-series-3: #199e70;
-  --mt-series-4: #c98500;
-  --mt-series-5: #d55181;
+   * Fixed order, assigned in sequence, never cycled. The same eight hues as the
+   * dark variant, stepped for a white surface rather than flipped, and
+   * re-validated as a set.
+   *
+   * Aqua, yellow and magenta sit below 3:1 against white. That is the relief
+   * rule rather than an oversight: every chart in the console ships a legend
+   * and a table view, so no reading depends on those fills alone. */
+  --mt-series-1: #2a78d6;
+  --mt-series-2: #eb6834;
+  --mt-series-3: #1baf7a;
+  --mt-series-4: #eda100;
+  --mt-series-5: #e87ba4;
   --mt-series-6: #008300;
-  --mt-series-7: #9085e9;
-  --mt-series-8: #e66767;
+  --mt-series-7: #4a3aa7;
+  --mt-series-8: #e34948;
 
-  /* ---- Heraldry -------------------------------------------------------- */
-  --mt-gold: #d4af37;
-  --mt-silver: #c8d2e0;
+  /* ---- Heraldry -------------------------------------------------------
+   * Burnished rather than bright: on white stone the dark theme's leaf gold and
+   * pale silver both vanish, so each is stepped down to a tone that still reads
+   * as the same metal and can carry text. */
+  --mt-gold: #7a5f17;
+  --mt-silver: #4f5a68;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html,
@@ -117,14 +157,14 @@ igc-navbar {
 
 igc-nav-drawer {
   --ig-nav-drawer-background: var(--mt-surface-2);
-  --ig-nav-drawer-item-active-background: rgba(111, 159, 216, 0.16);
+  --ig-nav-drawer-item-active-background: rgba(42, 93, 153, 0.11);
 }
 
-/* Grid Lite paints its record rows from its own gray ramp: under the dark
- * material theme both row backgrounds resolve to `--ig-gray-50`, a neutral
- * charcoal that reads as a separate slab against the console's blue-tinted
- * panels. The rows paint over --ig-grid-content-background, so overriding that
- * alone does nothing — the row tokens are the ones that matter.
+/* Grid Lite paints its record rows from its own gray ramp: both row backgrounds
+ * resolve to `--ig-gray-50`, a neutral that reads as a separate slab against the
+ * console's blue-tinted panels. The rows paint over
+ * --ig-grid-content-background, so overriding that alone does nothing — the row
+ * tokens are the ones that matter.
  *
  * Rows are left unstriped and separated by a hairline, which is how the plain
  * HTML tables behind every chart already look. */

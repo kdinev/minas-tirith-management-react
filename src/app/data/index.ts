@@ -24,8 +24,14 @@ export * from "./mordor";
 
 export interface StatusMeta {
   label: string;
-  /** CSS custom property holding the reserved status colour. */
+  /** CSS custom property holding the reserved status colour, as a mark. */
   color: string;
+  /**
+   * The same status as ink. `color` is a mark colour and three of the four are
+   * too light to carry text or a glyph on the console's surfaces, so anything
+   * that paints a figure or an icon uses this darker twin instead.
+   */
+  ink: string;
   /** Registered icon name in the `mt` collection. */
   icon: string;
   /** Rank for sorting worst-first. */
@@ -33,17 +39,17 @@ export interface StatusMeta {
 }
 
 export const readinessMeta: Record<Readiness, StatusMeta> = {
-  ready: { label: "Ready", color: "var(--mt-good)", icon: "status-ready", weight: 0 },
-  strained: { label: "Strained", color: "var(--mt-warning)", icon: "status-strained", weight: 1 },
-  depleted: { label: "Depleted", color: "var(--mt-serious)", icon: "status-depleted", weight: 2 },
-  critical: { label: "Critical", color: "var(--mt-critical)", icon: "status-critical", weight: 3 },
+  ready: { label: "Ready", color: "var(--mt-good)", ink: "var(--mt-good-ink)", icon: "status-ready", weight: 0 },
+  strained: { label: "Strained", color: "var(--mt-warning)", ink: "var(--mt-warning-ink)", icon: "status-strained", weight: 1 },
+  depleted: { label: "Depleted", color: "var(--mt-serious)", ink: "var(--mt-serious-ink)", icon: "status-depleted", weight: 2 },
+  critical: { label: "Critical", color: "var(--mt-critical)", ink: "var(--mt-critical-ink)", icon: "status-critical", weight: 3 },
 };
 
 export const severityMeta: Record<Severity, StatusMeta> = {
-  low: { label: "Low", color: "var(--mt-good)", icon: "status-ready", weight: 0 },
-  moderate: { label: "Moderate", color: "var(--mt-warning)", icon: "status-strained", weight: 1 },
-  high: { label: "High", color: "var(--mt-serious)", icon: "status-depleted", weight: 2 },
-  grave: { label: "Grave", color: "var(--mt-critical)", icon: "status-critical", weight: 3 },
+  low: { label: "Low", color: "var(--mt-good)", ink: "var(--mt-good-ink)", icon: "status-ready", weight: 0 },
+  moderate: { label: "Moderate", color: "var(--mt-warning)", ink: "var(--mt-warning-ink)", icon: "status-strained", weight: 1 },
+  high: { label: "High", color: "var(--mt-serious)", ink: "var(--mt-serious-ink)", icon: "status-depleted", weight: 2 },
+  grave: { label: "Grave", color: "var(--mt-critical)", ink: "var(--mt-critical-ink)", icon: "status-critical", weight: 3 },
 };
 
 export const trendMeta: Record<Trend, { label: string; icon: string }> = {
@@ -85,7 +91,10 @@ export interface ThreatBand {
   label: string;
   /** What the band means, in one line. */
   meaning: string;
+  /** The band as a mark — the dial's arc, the key's swatch, the badge wash. */
   color: string;
+  /** The band as ink — the readout figure, the badge glyph. See `StatusMeta`. */
+  ink: string;
   icon: string;
   min: number;
   max: number;
@@ -97,6 +106,7 @@ export const threatBands: ThreatBand[] = [
     label: "Watchful",
     meaning: "The Enemy stirs, but no host is on the march.",
     color: "var(--mt-good)",
+    ink: "var(--mt-good-ink)",
     icon: "status-ready",
     min: 0,
     max: 25,
@@ -105,6 +115,7 @@ export const threatBands: ThreatBand[] = [
     label: "Gathering",
     meaning: "Hosts are mustering beyond the river. Weeks, not days.",
     color: "var(--mt-warning)",
+    ink: "var(--mt-warning-ink)",
     icon: "status-strained",
     min: 25,
     max: 50,
@@ -113,6 +124,7 @@ export const threatBands: ThreatBand[] = [
     label: "Imminent",
     meaning: "The vanguard is across the Anduin. Days.",
     color: "var(--mt-serious)",
+    ink: "var(--mt-serious-ink)",
     icon: "status-depleted",
     min: 50,
     max: 75,
@@ -121,6 +133,7 @@ export const threatBands: ThreatBand[] = [
     label: "At the Gate",
     meaning: "Assault expected within hours. The siege has begun.",
     color: "var(--mt-critical)",
+    ink: "var(--mt-critical-ink)",
     icon: "status-critical",
     min: 75,
     max: 100,

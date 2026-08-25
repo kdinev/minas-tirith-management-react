@@ -56,9 +56,16 @@ chart.
 `critical`) is used by every section and maps to a reserved status palette. Status
 never rides on colour alone: each state ships a distinct glyph and its word.
 
+Each state carries two colours rather than one, and the distinction matters when
+adding a component. `color` is the **mark** — a chip's wash, an accent rule, a
+gauge arc, a meter fill — where the colour only has to be seen. `ink` is the same
+state stepped dark enough to carry text, because on white stone three of the four
+marks cannot: `warning` sits at 1.8:1. Anything that paints a figure or a glyph
+takes `ink`; anything that paints an area takes `color`.
+
 **Charts.** Categorical series take a fixed, validated eight-slot palette assigned
 in order and never cycled. Colour choices went through the `dataviz` skill's
-validator against this console's dark surface (lightness band, chroma floor,
+validator against this console's white surface (lightness band, chroma floor,
 protan/deutan separation, and contrast all pass). Notable consequences visible in
 the code:
 
@@ -91,8 +98,11 @@ chart, an axis, or a series simply never appears.
 
 ## Known limitations
 
-- **Dark only.** The console commits to one dark "war room" palette, validated
-  against its own surface. There is no light theme and no toggle.
+- **Light only.** The console commits to one light "White City" palette,
+  validated against its own surface. There is no dark theme and no toggle. The
+  chart palette is duplicated as literal hex in `ui/charts.ts` because the charts
+  package draws to canvas and cannot read CSS custom properties, so a variant
+  swap means editing two files rather than flipping one import.
 - **Bundle size.** The charts and gauges packages dominate the ~900 kB gzipped
   bundle and are loaded up front. Splitting them per route is the obvious next
   step; see the `igniteui-react-optimize-bundle-size` skill in `.agents/skills`.
@@ -140,9 +150,9 @@ work here, and their fingerprints are in the source:
 
 | Skill | Where it shows up |
 | --- | --- |
-| `dataviz` (bundled with Claude Code) | The whole chart layer. Its `scripts/validate_palette.js` was run against this console's dark surface to choose the eight categorical slots, and its anti-pattern catalogue is why column charts are pinned to zero, why nothing is dual-axis, why every chart has a table twin, why status colours are reserved and never reused as a series, and why filters sit in one row above what they scope. |
+| `dataviz` (bundled with Claude Code) | The whole chart layer. Its `scripts/validate_palette.js` was run against this console's white surface to choose the eight categorical slots, and its anti-pattern catalogue is why column charts are pinned to zero, why nothing is dual-axis, why every chart has a table twin, why status colours are reserved and never reused as a series, and why filters sit in one row above what they scope. |
 | [`igniteui-react-components`](.agents/skills/igniteui-react-components/SKILL.md) | Theme-CSS import order in `main.tsx`; `.register()` for charts/gauges but never for `igniteui-react`; CSS that targets `igc-*` and `::part()` rather than React names; `e.detail` event payloads; explicitly sized containers for charts, gauges and grids; Grid Lite over the premium grid, and no fixed column widths. |
-| [`igniteui-react-customize-theme`](.agents/skills/igniteui-react-customize-theme/SKILL.md) | `src/theme.css` overriding only the `500` shade of each palette role and letting the ramp derive; leaving the dark variant's light `gray` base alone; avoiding the `--ig-*-h/-s/-l` tokens, which are a silent no-op. |
+| [`igniteui-react-customize-theme`](.agents/skills/igniteui-react-customize-theme/SKILL.md) | `src/theme.css` overriding only the `500` shade of each palette role and letting the ramp derive; leaving the light variant's dark `gray` base alone; avoiding the `--ig-*-h/-s/-l` tokens, which are a silent no-op. |
 
 The other skills in `.agents/skills` were not needed for this build but are the
 right starting points for their subjects — notably

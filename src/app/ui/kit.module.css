@@ -244,8 +244,8 @@
   gap: 6px;
   padding: 3px 9px 3px 7px;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--status-color) 40%, transparent);
-  background: color-mix(in srgb, var(--status-color) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--status-color) 52%, transparent);
+  background: color-mix(in srgb, var(--status-color) 18%, transparent);
   color: var(--mt-ink-1);
   font-size: 0.76rem;
   font-weight: 600;
@@ -257,7 +257,7 @@
   width: 14px;
   height: 14px;
   flex: 0 0 14px;
-  color: var(--status-color);
+  color: var(--status-ink, var(--status-color));
 }
 
 .statusBare {
@@ -274,7 +274,7 @@
   width: 15px;
   height: 15px;
   flex: 0 0 15px;
-  color: var(--status-color);
+  color: var(--status-ink, var(--status-color));
 }
 
 /* ---- Meter ------------------------------------------------------------- */

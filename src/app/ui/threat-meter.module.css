@@ -78,8 +78,8 @@
 }
 
 .bandStanding {
-  background: color-mix(in srgb, var(--band-color) 12%, transparent);
-  border-color: color-mix(in srgb, var(--band-color) 38%, transparent);
+  background: color-mix(in srgb, var(--band-color) 16%, transparent);
+  border-color: color-mix(in srgb, var(--band-color) 50%, transparent);
 }
 
 .bandHead {
@@ -115,7 +115,7 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--band-color);
+  color: var(--band-ink, var(--band-color));
   margin-inline-start: auto;
 }
 

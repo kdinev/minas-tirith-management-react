@@ -66,7 +66,12 @@ export default function App() {
           <Link
             to="/mordor"
             className={styles.threatBadge}
-            style={{ "--threat-color": band.color } as React.CSSProperties}
+            style={
+              {
+                "--threat-color": band.color,
+                "--threat-ink": band.ink,
+              } as React.CSSProperties
+            }
           >
             <Icon name={band.icon} />
             <span className={styles.threatText}>

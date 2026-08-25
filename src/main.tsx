@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Theme first, overrides after. Without the theme CSS every Ignite UI component
 // renders unstyled with broken icons.
-import "igniteui-webcomponents/themes/dark/material.css";
+import "igniteui-webcomponents/themes/light/material.css";
 import "./theme.css";
 
 import App from "./app/app";
