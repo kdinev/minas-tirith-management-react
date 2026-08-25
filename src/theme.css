@@ -120,9 +120,44 @@ igc-nav-drawer {
   --ig-nav-drawer-item-active-background: rgba(111, 159, 216, 0.16);
 }
 
+/* Grid Lite paints its record rows from its own gray ramp: under the dark
+ * material theme both row backgrounds resolve to `--ig-gray-50`, a neutral
+ * charcoal that reads as a separate slab against the console's blue-tinted
+ * panels. The rows paint over --ig-grid-content-background, so overriding that
+ * alone does nothing — the row tokens are the ones that matter.
+ *
+ * Rows are left unstriped and separated by a hairline, which is how the plain
+ * HTML tables behind every chart already look. */
 igc-grid-lite {
-  --ig-grid-header-background: var(--mt-surface-2);
   --ig-grid-content-background: var(--mt-surface-1);
+  --ig-grid-row-odd-background: var(--mt-surface-1);
+  --ig-grid-row-even-background: var(--mt-surface-1);
+  --ig-grid-row-hover-background: var(--mt-surface-3);
+  --ig-grid-content-text-color: var(--mt-ink-1);
+
+  --ig-grid-row-border-color: var(--mt-line);
+  /* These default to the same value as the row background, so they are
+   * invisible until the row background changes — then they surface as stray
+   * neutral rules between the columns. */
+  --ig-grid-body-column-border-color-odd: transparent;
+  --ig-grid-body-column-border-color-even: transparent;
+  /* Hovering a row reveals its cell rules; keep them the same hairline as the
+   * row separators rather than the theme gray. */
+  --ig-grid-body-column-hover-border-color: var(--mt-line);
+  --ig-grid-body-column-hover-selected-border-color: var(--mt-line);
+
+  --ig-grid-header-background: var(--mt-surface-2);
+  --ig-grid-header-text-color: var(--mt-ink-3);
+  --ig-grid-header-border-color: var(--mt-border);
+  --ig-grid-grid-border-color: transparent;
+  /* The panel already draws the container; an inner shadow only detaches the
+   * grid from it. */
+  --ig-grid-grid-elevation: none;
+
+  --ig-grid-filtering-row-background: var(--mt-surface-2);
+  --ig-grid-filtering-row-text-color: var(--mt-ink-1);
+  --ig-grid-filtering-header-background: var(--mt-surface-2);
+  --ig-grid-filtering-header-text-color: var(--mt-ink-1);
 }
 
 /* Scrollbars, so the console reads as one surface. */
