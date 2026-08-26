@@ -25,19 +25,26 @@ IgrBulletGraphModule.register();
  *
  * `igniteui-react-charts` draws to canvas and cannot resolve CSS custom
  * properties, so these values duplicate the `--mt-*` tokens in `src/theme.css`.
- * Change one and change the other.
+ * Change one and change the other — including when the console changes variant,
+ * since nothing here follows a CSS theme swap on its own.
  */
 
-/** Categorical slots, in fixed order. Assign 1..N in sequence, never cycle. */
+/**
+ * Categorical slots, in fixed order. Assign 1..N in sequence, never cycle.
+ *
+ * Stepped for the white chart surface. Slots 3, 4 and 5 fall below 3:1 against
+ * it, which is legal only because every chart in the console ships a legend and
+ * a table view — keep both when adding one.
+ */
 export const SERIES = [
-  "#3987e5", // 1 blue
-  "#d95926", // 2 orange
-  "#199e70", // 3 aqua
-  "#c98500", // 4 yellow
-  "#d55181", // 5 magenta
+  "#2a78d6", // 1 blue
+  "#eb6834", // 2 orange
+  "#1baf7a", // 3 aqua
+  "#eda100", // 4 yellow
+  "#e87ba4", // 5 magenta
   "#008300", // 6 green
-  "#9085e9", // 7 violet
-  "#e66767", // 8 red
+  "#4a3aa7", // 7 violet
+  "#e34948", // 8 red
 ] as const;
 
 /** Reserved status colours. Never used as a series. */
@@ -49,15 +56,15 @@ export const STATUS = {
 } as const;
 
 export const CHROME = {
-  surface: "#171a21",
-  raised: "#1e222b",
-  track: "#262b36",
-  inkPrimary: "#f0f3f8",
-  inkSecondary: "#b3bccb",
-  inkMuted: "#8b93a3",
-  grid: "#262b34",
-  axis: "#37404d",
-  gold: "#d4af37",
+  surface: "#ffffff",
+  raised: "#f2f5fa",
+  track: "#e3e8f0",
+  inkPrimary: "#161b24",
+  inkSecondary: "#444e5e",
+  inkMuted: "#57616f",
+  grid: "#e5e9f0",
+  axis: "#aeb8c7",
+  gold: "#7a5f17",
 } as const;
 
 /**

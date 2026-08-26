@@ -208,8 +208,10 @@ export function Hero({
  * Status
  * ------------------------------------------------------------------------- */
 
+/* The wash and border take the mark colour; the glyph takes the ink, since a
+ * light mark that reads as a background tint does not read as a symbol. */
 function statusStyle(meta: StatusMeta): CSSProperties {
-  return { "--status-color": meta.color } as CSSProperties;
+  return { "--status-color": meta.color, "--status-ink": meta.ink } as CSSProperties;
 }
 
 /** Readiness as a pill: reserved colour, glyph and word together. */
@@ -248,7 +250,7 @@ export function SeverityChip({ severity }: { severity: Severity }) {
 export function TrendMark({ trend }: { trend: Trend }) {
   const meta = trendMeta[trend];
   return (
-    <span className={styles.statusBare} style={{ "--status-color": "var(--mt-ink-2)" } as CSSProperties}>
+    <span className={styles.statusBare} style={{ "--status-ink": "var(--mt-ink-2)" } as CSSProperties}>
       <Icon name={meta.icon} />
       {meta.label}
     </span>

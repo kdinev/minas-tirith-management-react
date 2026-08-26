@@ -97,7 +97,7 @@ export function ThreatMeter({
 
         {/* The reading in words and figures, over the dial's open bottom. */}
         <div className={styles.readout}>
-          <p className={styles.readoutIndex} style={{ color: band.color }}>
+          <p className={styles.readoutIndex} style={{ color: band.ink }}>
             {index}
           </p>
           <p className={styles.readoutBand}>
@@ -122,7 +122,7 @@ export function BandKey({ current }: { current: ThreatBand }) {
           <li
             key={b.label}
             className={standing ? `${styles.band} ${styles.bandStanding}` : styles.band}
-            style={{ "--band-color": b.color } as React.CSSProperties}
+            style={{ "--band-color": b.color, "--band-ink": b.ink } as React.CSSProperties}
             aria-current={standing ? "true" : undefined}
           >
             <span className={styles.bandHead}>

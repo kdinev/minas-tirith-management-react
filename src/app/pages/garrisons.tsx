@@ -55,7 +55,7 @@ const numberCell = (ctx: IgrCellContext<Garrison>) => (
 const scoreCell = (ctx: IgrCellContext<Garrison>) => {
   const score = ctx.value as number;
   return (
-    <span className={styles.cellNumeric} style={{ color: readinessMeta[bandScore(score)].color }}>
+    <span className={styles.cellNumeric} style={{ color: readinessMeta[bandScore(score)].ink }}>
       {score}
     </span>
   );
@@ -66,7 +66,7 @@ const victualCell = (ctx: IgrCellContext<Garrison>) => {
   return (
     <span
       className={styles.cellNumeric}
-      style={{ color: readinessMeta[bandProvisionDays(days)].color }}
+      style={{ color: readinessMeta[bandProvisionDays(days)].ink }}
     >
       {days}
     </span>
@@ -80,7 +80,7 @@ const readinessCell = (ctx: IgrCellContext<Garrison>) => (
 const reportAgeCell = (ctx: IgrCellContext<Garrison>) => {
   const days = ctx.value as number;
   return (
-    <span className={styles.cellNumeric} style={days >= 2 ? { color: STATUS.serious } : undefined}>
+    <span className={styles.cellNumeric} style={days >= 2 ? { color: "var(--mt-serious-ink)" } : undefined}>
       {days === 0 ? "Today" : formatDays(days)}
     </span>
   );
